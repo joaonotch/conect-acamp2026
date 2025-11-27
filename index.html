@@ -18,7 +18,7 @@
   <section class="s1">
     <div class="main-container">
       <div class="greeting-wrap">
-        <img src="/logo.png" alt="Logo Conecta Camp" class="logo-conecta">
+        <img src="/images/logo.png" alt="Logo Conecta Camp" class="logo-conecta">
       </div>
       <div class="intro-wrapper">
         <div class="nav-wrapper">
@@ -143,14 +143,14 @@
 
         <!-- Card 1 -->
         <div class="ministro-card">
-          <img src="filipirodrigues.jpg" alt="Filipi Rodrigues">
+          <img src="/images/ministros/filipirodrigues.jpg" alt="Filipi Rodrigues">
           <h4>Filipi Rodrigues</h4>
           <p>Campina Grande [PB]</p>
         </div>
 
         <!-- Card 2 -->
         <div class="ministro-card">
-          <img src="erickgabriel.jpg" alt="Pr. Erick Gabriel">
+          <img src="/images/ministros/erickgabriel.jpg" alt="Pr. Erick Gabriel">
           <h4>Pr. Erick Gabriel</h4>
           <p>Recife [PE]</p>
         </div>
@@ -163,7 +163,7 @@
   <section class="s2">
     <div class="camp-price-box">
 
-      <img src="/logo.png" alt="Conecta Camp" class="camp-logo">
+      <img src="/images/logo.png" alt="Conecta Camp" class="camp-logo">
 
       <p class="offer-original">De <s>R$ 250,00</s> — por apenas</p>
 
@@ -172,46 +172,13 @@
         <span class="price-sub">(lote único)</span>
       </p>
 
-      <button class="offer-button" id="openModalBtn">QUERO GARANTIR MINHA VAGA ✔</button>
+      <a class="offer-button" href="https://wa.me/+5581999889837">QUERO GARANTIR MINHA VAGA ✔</a>
 
       <div class="secure-area">
         Pagamento seguro via PIX ou Cartão
       </div>
     </div>
   </section>
-
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="close" id="closeModal">&times;</span>
-
-      <h3>Inscrição Conecta Camp</h3>
-
-      <form id="popup-form">
-        <label>Nome / Sobrenome</label>
-        <input type="text" name="nome" required />
-
-        <label>CPF</label>
-        <input type="number" name="cpf" required />
-
-
-        <label>Email</label>
-        <input type="email" name="email" required />
-
-        <label>WhatsApp (Com DDD)</label>
-        <input type="number" name="telefone" required />
-
-        <label>Idade</label>
-        <input type="number" name="idade" min="12" required />
-        <small id="idade-erro" class="msg-erro"></small>
-
-        <label>Igreja (Cupira/Rendeiras)</label>
-        <input type="text" name="igreja" required />
-
-        <button class="offer-button">Ir para Pagamento</button>
-      </form>
-
-    </div>
-  </div>
 
   <section class="s2">
     <div class="footer-basic">
@@ -221,85 +188,7 @@
     </div>
   </section>
 
-
   <script type="text/javascript" src="main.js"></script>
-  <script>
-    // abrir modal
-    document.getElementById("openModalBtn").onclick = function () {
-      document.getElementById("modal").style.display = "block";
-    };
-
-    // fechar modal
-    document.getElementById("closeModal").onclick = function () {
-      document.getElementById("modal").style.display = "none";
-    };
-
-    // fechar clicando fora
-    window.onclick = function (event) {
-      if (event.target == document.getElementById("modal")) {
-        document.getElementById("modal").style.display = "none";
-      }
-    };
-
-    // envio para backend Node.js
-    document.getElementById("popup-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const formData = Object.fromEntries(new FormData(e.target).entries());
-
-      await fetch("/save-inscription", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-      });
-
-      alert("Inscrição enviada!");
-      document.getElementById("modal").style.display = "none";
-      e.target.reset();
-    });
-  </script>
-
-  <script>
-    const idadeInput = document.getElementById("idade");
-    const erroMsg = document.getElementById("idade-erro");
-    const form = document.getElementById("popup-form");
-    const submitBtn = form.querySelector("button[type='submit']");
-
-    const idadeMinima = 12; // altere se quiser
-
-    idadeInput.addEventListener("input", function () {
-      const idade = parseInt(idadeInput.value);
-
-      if (!idadeInput.value) {
-        idadeInput.classList.remove("input-error", "input-ok");
-        erroMsg.style.opacity = 0;
-        submitBtn.disabled = false;
-        return;
-      }
-
-      if (idade < idadeMinima) {
-        idadeInput.classList.add("input-error");
-        idadeInput.classList.remove("input-ok");
-
-        erroMsg.innerText = `⚠ Idade mínima para inscrição é ${idadeMinima} anos.`;
-        erroMsg.style.opacity = 1;
-
-        submitBtn.disabled = true;
-        submitBtn.style.opacity = 0.6;
-      }
-      else {
-        idadeInput.classList.add("input-ok");
-        idadeInput.classList.remove("input-error");
-
-        erroMsg.innerText = "";
-        erroMsg.style.opacity = 0;
-
-        submitBtn.disabled = false;
-        submitBtn.style.opacity = 1;
-      }
-    });
-  </script>
-
 </body>
 
 </html>
